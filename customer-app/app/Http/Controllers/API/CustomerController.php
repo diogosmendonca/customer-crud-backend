@@ -9,6 +9,22 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+
+    /**
+     * Validators for Customer resource. 
+     * 
+     * @return array
+     * 
+     */
+    protected function customer_validators() {
+        return [
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required|email|unique:customers|max:255',
+            'phone' => 'required|regex:/^[+]?[-\s\.0-9]*([(][\s\.0-9]*[)])?[-\s\.0-9]*$/|max:30',
+        ];
+    }   
+
     /**
      * Display a listing of customers.
      *
@@ -27,19 +43,9 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'email' => 'required|email|unique:customers|max:255',
-            'phone' => 'required|max:255',
-        ]);
-
-        return Customer::create([
-            'first_name' => request('first_name'),
-            'last_name' => request('last_name'),
-            'email' => request('email'),
-            'phone' => request('phone'),
-        ]);
+        request()->validate($this->customer_validators());
+        $customer = Customer::create($request->all());
+        return response()->json($customer, 201);
     }
 
     /**
@@ -50,7 +56,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return $customer;
     }
 
     /**
@@ -62,7 +68,10 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        request()->validate($this->customer_validators());
+        $customer->update($request->all());
+
+        return $customer;
     }
 
     /**
@@ -73,6 +82,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return response()->json(null, 204);
     }
 }
