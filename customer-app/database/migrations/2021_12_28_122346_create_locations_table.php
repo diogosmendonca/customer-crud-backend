@@ -21,7 +21,10 @@ class CreateLocationsTable extends Migration
             $table->string('zip');
             $table->timestamps();
 
-            $table->foreignId('customer_id');
+            $table->foreignId('customer_id')
+                        ->constrained()
+                        ->onUpdate('cascade')
+                        ->onDelete('cascade');
         });
     }
 

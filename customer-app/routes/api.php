@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CustomerController;
+use App\Http\Controllers\API\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,10 @@ Route::post('/customers', [CustomerController::class, 'store']);
 Route::get('/customers/{customer}', [CustomerController::class, 'show']);
 Route::put('/customers/{customer}', [CustomerController::class, 'update']);
 Route::delete('/customers/{customer}', [CustomerController::class, 'destroy']);
+
+Route::get('/locations', [LocationController::class, 'index']);
+Route::post('/locations', [LocationController::class, 'store']);
+Route::get('/locations/{location}', [LocationController::class, 'show']);
+Route::put('/locations/{location}', [LocationController::class, 'update']);
+Route::delete('/locations/{location}', [LocationController::class, 'destroy']);
+

@@ -12,6 +12,8 @@ class Customer extends Model
 
     protected $fillable = ['first_name', 'last_name', 'email', 'phone'];
 
+    protected $with = ['locations'];
+
     public function locations(){
         return $this->hasMany(Location::class);
     }
