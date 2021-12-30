@@ -1,6 +1,6 @@
 # Customer CRUD Backend
 
-This project is an example of CRUD application of Customers and Locations developed in Laravel 8 and React. 
+This project is an example of CRUD application of Customers and Locations developed in Laravel 8 and React 17. 
 
 The compiled files of front-end are already available in public folder. If you want to generate those compiled files by yourself, please refer to the  [front-end part of the project](https://github.com/diogosmendonca/customer-crud-frontend).
 
