@@ -8,7 +8,7 @@ For running the application in the local machine just install and start [sail](h
 
 The APIs are available in using `http://localhost/api/customer` and `http://localhost/api/locations` urls.
 
-If you want to have example data in the application. Run `sail astisan db:seed`.
+If you want to have example data in the application, run `sail astisan db:seed`.
 
 I developed automated tests for the APIs. For running it, use `sail test` command. The tests delete all data from the database, so use seed command to reseed the database after running the tests.
 
