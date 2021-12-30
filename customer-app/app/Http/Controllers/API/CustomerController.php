@@ -16,11 +16,11 @@ class CustomerController extends Controller
      * @return array
      * 
      */
-    protected function customer_validators() {
+    protected function customer_validators($id) {
         return [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'email' => 'required|email|unique:customers|max:255',
+            'email' => 'required|email|max:255|unique:customers,email' . ($id != null ? ',' . $id : ''),
             'phone' => 'required|regex:/^[+]?[-\s\.0-9]*([(][\s\.0-9]*[)])?[-\s\.0-9]*$/|max:30',
         ];
     }   
@@ -43,8 +43,9 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate($this->customer_validators());
+        request()->validate($this->customer_validators(null));
         $customer = Customer::create($request->all());
+        $customer->locations = [];
         return response()->json($customer, 201);
     }
 
@@ -68,7 +69,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        request()->validate($this->customer_validators());
+        request()->validate($this->customer_validators($customer->id));
         $customer->update($request->all());
 
         return $customer;
